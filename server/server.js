@@ -9,6 +9,30 @@ const init = async () => {
         host: 'localhost'
     });
 
+    server.route({
+        method: 'GET',
+        path: '/rates',
+        handler: (request, h) => {
+            return 'Rates list';
+        }
+    });
+
+    server.route({
+        method: 'POST',
+        path: '/rates',
+        handler: (request, h) => {
+            return 'Rate insert';
+        }
+    });
+
+    server.route({
+        method: 'PUT',
+        path: '/rates',
+        handler: (request, h) => {
+            return 'Rate update';
+        }
+    });
+
     await server.start();
     console.log('Server running on %s', server.info.uri);
 };
