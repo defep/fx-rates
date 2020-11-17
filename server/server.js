@@ -34,7 +34,7 @@ const init = async () => {
             const ObjectID = request.mongo.ObjectID;
 
             try {
-                const rates = await db.collection('rates').find({}).toArray();
+                const rates = await db.collection('rates').find({}).sort({datetime: -1}).toArray();
                 return rates;
             } catch (error) {
             }
@@ -47,6 +47,7 @@ const init = async () => {
         async handler(request, h) {
 
             let payload = request.payload;
+            payload.datetime = new Date();
 
             const result = await fetch(`http://data.fixer.io/api/latest?access_key=${process.env.FIXER_API_KEY}&symbols=USD,ARS,BRL&format=1`)
                 .then(res => res.text())
@@ -64,7 +65,7 @@ const init = async () => {
                     payload.rate = 1 / eur_symbol;
                 }
             } else {
-                rate.rate = result["rates"][dest_rate];
+                payload.rate = result["rates"][dest_rate];
             }
 
             const status = await request.mongo.db.collection('rates').insertOne(payload);
