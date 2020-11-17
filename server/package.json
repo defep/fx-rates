@@ -9,6 +9,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@hapi/hapi": "^20.0.2"
+    "@hapi/hapi": "^20.0.2",
+    "dotenv": "^8.2.0",
+    "hapi-mongodb": "^9.0.2",
+    "node-fetch": "^2.6.1"
   }
 }
