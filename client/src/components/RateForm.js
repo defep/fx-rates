@@ -60,25 +60,25 @@ class RateForm extends Component {
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
-                <div class="form-row">
-                    <div class="form-group col-md-4">
+                <div className="form-row">
+                    <div className="form-group col-md-4">
                         <label>Fee %</label>
-                        <input class="form-control" name="fee" type="number" onChange={this.handleInputChange}></input>
+                        <input className="form-control" name="fee" type="number" onChange={this.handleInputChange}></input>
 
                     </div>
-                    <div class="form-group col-md-4">
+                    <div className="form-group col-md-4">
                         <label>Pair</label>
-                        <select class="form-control" name="pair" onChange={this.handleInputChange}>
+                        <select className="form-control" name="pair" onChange={this.handleInputChange}>
                             { currencies.map(e =>
-                                <option value={ e.key }>{ e.value }</option>
+                                <option key={e.key} value={ e.key }>{ e.value }</option>
                             )}
                         </select>
 
                     </div>
                 </div>
-                <div class="form-row">
-                    <div class="form-group col-md-12">
-                        <input type="submit" value="Submit" class="btn btn-primary" onClick={this.props.handler} />
+                <div className="form-row">
+                    <div className="form-group col-md-12">
+                        <input type="submit" value="Submit" className="btn btn-primary" onClick={this.props.handler} />
                     </div>
                 </div>
             </form>
