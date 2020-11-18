@@ -14,8 +14,7 @@ const init = async () => {
     const dbOpts = {
         url: 'mongodb://localhost:27017/challengedb',
         settings: {
-            useUnifiedTopology: true,
-            poolSize: 10
+            useUnifiedTopology: true
         },
         decorate: true
     };
@@ -34,9 +33,22 @@ const init = async () => {
             const ObjectID = request.mongo.ObjectID;
 
             try {
-                const rates = await db.collection('rates').find({}).sort({datetime: -1}).toArray();
+                const rates = await db.collection('rates').aggregate([
+                    { $sort: { createdAt: -1 } },
+                    {
+                        $group:
+                        {
+                            _id: '$pair',
+                            fee: { $first: "$fee" },
+                            rate: { $first: "$rate" },
+                            createdAt: { $first: "$createdAt" }
+                        }
+                    },
+                    { $sort: { createdAt: -1 }}
+                ]).toArray();
                 return rates;
             } catch (error) {
+                console.log(error);
             }
         }
     });
@@ -47,39 +59,33 @@ const init = async () => {
         async handler(request, h) {
 
             let payload = request.payload;
-            payload.datetime = new Date();
+            payload.createdAt = new Date();
 
             const result = await fetch(`http://data.fixer.io/api/latest?access_key=${process.env.FIXER_API_KEY}&symbols=USD,ARS,BRL&format=1`)
                 .then(res => res.text())
                 .then(text => { return JSON.parse(text) })
 
-            const base_rate = payload.pair.substr(0, 3);
-            const dest_rate = payload.pair.substr(3);
+            const baseRate = payload.pair.substr(0, 3);
+            const destRate = payload.pair.substr(3);
 
-            if (base_rate !== "EUR") {
-                const eur_symbol = result["rates"][base_rate];
+            if (baseRate !== "EUR") {
+                const eur_symbol = result["rates"][baseRate];
 
-                payload.rate = result["rates"][dest_rate] / eur_symbol
+                payload.rate = result["rates"][destRate] / eur_symbol
 
-                if (dest_rate === "EUR") {
+                if (destRate === "EUR") {
                     payload.rate = 1 / eur_symbol;
                 }
             } else {
-                payload.rate = result["rates"][dest_rate];
+                payload.rate = result["rates"][destRate];
+            }
+
+            if (!payload.fee || payload.fee < 0) {
+                payload.fee = 0;
             }
 
             const status = await request.mongo.db.collection('rates').insertOne(payload);
             return status;
-        }
-    });
-
-    server.route({
-        method: 'PUT',
-        path: '/api/rates/{id}',
-        handler: (request, h) => {
-            const id = request.params.id
-
-            return `Rate update ${id}`;
         }
     });
 
@@ -90,7 +96,6 @@ const init = async () => {
 };
 
 process.on('unhandledRejection', (err) => {
-
     console.log(err);
     process.exit(1);
 });
