@@ -7,7 +7,7 @@ import {
 
 // Pages
 import MainPage from './pages/MainPage';
-import AdminPage from './pages/admin';
+import AdminPage from './pages/AdminPage';
 
 class App extends Component {
 

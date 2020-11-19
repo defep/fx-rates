@@ -39,7 +39,7 @@ class Rates extends Component {
 
             <hr />
 
-            <h3 className="mt-5">Rates</h3>
+            <h3 className="mt-5">Rates list</h3>
 
             <table className="table table-striped">
               <thead>

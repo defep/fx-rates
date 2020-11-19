@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+import './MainPage.css';
+
 import { Link } from "react-router-dom";
 
 class MainPage extends Component {
@@ -61,10 +63,10 @@ class MainPage extends Component {
 
     render() {
         const { visible } = this.state;
-        return (<div className="container">
+        return (<div className="wrapper">
             <div className="row">
                 <div className="col">
-                    <h1 className="mt-5">FX Rates</h1>
+                    <h1 className="mt-4 mb-4">fx rates</h1>
                 </div>
             </div>
 
@@ -88,7 +90,7 @@ class MainPage extends Component {
                             value={this.state.pair}
                             onChange={this.handleChange}>
                             {this.state.rates.map(e => (
-                                <option key={e._id} value={e._id}>{e._id}</option>
+                                <option key={e._id} value={e._id}>{e._id.substr(0, 3)} to {e._id.substr(3)}</option>
                             ))}
                         </select>
                     </div>
@@ -96,14 +98,12 @@ class MainPage extends Component {
             </form>
             <div className="row" style={{ display: (visible ? 'block' : 'none') }}>
                 <div className="col-md-12 text-center">
-                    <h5 className="mt-4">{this.state.amount} {this.state.from} equals to</h5>
-                    <h1 className="mt-0 mb-5">{this.state.conversion.toFixed(2)} {this.state.to}</h1>
+                    <h5 className="mt-4 mb-1">{this.state.amount} {this.state.from} equals to</h5>
+                    <h1 className="mt-0 mb-4">{this.state.conversion.toFixed(2)} {this.state.to}</h1>
                 </div>
             </div>
-            <div className="row text-center">
-                <div className="col">
-                    <Link to="/admin">Click here to create a new rate</Link>
-                </div>
+            <div className="box-footer">
+                <Link to="/admin">Click here to create a new rate</Link>
             </div>
         </div>);
     }
