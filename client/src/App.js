@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 
 // Pages
-import MainPage from './pages';
+import MainPage from './pages/MainPage';
 import AdminPage from './pages/admin';
 
 class App extends Component {

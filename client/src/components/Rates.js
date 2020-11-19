@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import { Link } from "react-router-dom";
+
 // Components
 import RateForm from './RateForm';
 
@@ -28,8 +30,10 @@ class Rates extends Component {
         <div className="row">
           <div className="col-md-12">
             <h1 className="mt-5">FX Rates</h1>
-            <h3>Create a new FX pair</h3>
 
+            <Link to="/">Go to main page</Link>
+
+            <h3>Create a new FX pair</h3>
 
             <RateForm fetchData={this.fetchData} />
 
