@@ -12,7 +12,7 @@ const init = async () => {
     });
 
     const dbOpts = {
-        url: 'mongodb://localhost:27017/challengedb',
+        url: `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/fxratesdb`,
         settings: {
             useUnifiedTopology: true
         },
