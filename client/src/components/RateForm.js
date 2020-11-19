@@ -63,7 +63,12 @@ class RateForm extends Component {
                 <div className="form-row">
                     <div className="form-group col-md-4">
                         <label>Fee %</label>
-                        <input className="form-control" name="fee" type="number" onChange={this.handleInputChange}></input>
+                        <input
+                            className="form-control"
+                            name="fee"
+                            min="0"
+                            type="number"
+                            onChange={this.handleInputChange} />
 
                     </div>
                     <div className="form-group col-md-4">
