@@ -7,13 +7,26 @@ A currency converter tool that uses a [ReactJS](https://reactjs.org) frontend, a
 
 ## Install
 
-Install the required dependencies for client and server folders.
+Clone this repo
 
-```npm install```
+`git clone https://github.com/defep/fx-rates`
+
+Install the required dependencies for the client and server applications.
+
+```
+cd fx-rates
+npm i --prefix server && npm i --prefix client
+```
 
 ## Server setup
 
-Inside the ***server*** folder create an ***.env*** file and add your Fixer API key. You can create it from ***.env.example.***
+Inside the server folder create an .env file and add your Fixer API key. You can create it from .env.example.
+
+```
+cd server
+cp .env.example .env
+vi .env
+```
 
 ## Run Server
 
@@ -22,7 +35,7 @@ cd server
 npm start
 ```
 
-## Run React
+## Run ReactJS
 ```
 cd client
 npm start
