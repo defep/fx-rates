@@ -8,7 +8,6 @@ const init = async () => {
 
     const server = Hapi.server({
         port: 3001,
-        host: 'localhost'
     });
 
     const dbOpts = {
@@ -44,7 +43,7 @@ const init = async () => {
                             createdAt: { $first: "$createdAt" }
                         }
                     },
-                    { $sort: { createdAt: -1 }}
+                    { $sort: { createdAt: -1 } }
                 ]).toArray();
                 return rates;
             } catch (error) {

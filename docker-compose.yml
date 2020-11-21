@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  frontend:
+    image: frontend
+    build: ./client
+    ports:
+      - "3000:3000"
+    networks:
+      - "app-network"
+  api:
+    restart: always
+    build: ./server
+    ports:
+      - "3001:3001"
+    networks:
+      - app-network
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - "27017:27017"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

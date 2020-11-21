@@ -36,7 +36,19 @@ npm start
 ```
 
 ## Run ReactJS
+
+Change directory to client folder and modify the package.json proxy value from api to localhost.
+
+`"proxy": "http://localhost:3001"`
+
+Start the ReactJS app.
+
 ```
-cd client
 npm start
 ```
+
+## Docker
+
+Alternatively you could use docker-compose to run this application.
+
+`docker-compose up --build`
