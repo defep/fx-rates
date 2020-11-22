@@ -8,6 +8,9 @@ services:
       - "3000:3000"
     networks:
       - "app-network"
+    volumes:
+      - ./client:/usr/src/client
+      - /usr/src/client/node_modules/
 
   api:
     restart: always
@@ -16,6 +19,10 @@ services:
       - "3001:3001"
     networks:
       - app-network
+    command: nodemon --legacy-watch server.js
+    volumes:
+      - ./server:/usr/src/api
+      - /usr/src/api/node_modules
 
   mongo:
     container_name: mongo
@@ -28,3 +35,4 @@ services:
 networks:
   app-network:
     driver: bridge
+

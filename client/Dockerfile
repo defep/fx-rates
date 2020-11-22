@@ -1,11 +1,10 @@
 FROM node:14.15.1-alpine
 
-COPY package.json package-lock.json ./
-RUN npm install --production --silent && mkdir /client && mv ./node_modules ./client
-
-WORKDIR /client
+WORKDIR /usr/src/client
 
 COPY . .
+
+RUN npm i --silent
 
 EXPOSE 3000
 
